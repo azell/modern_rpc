@@ -1,0 +1,4 @@
+java -cp build/libs/grpc-1.0-dev.jar io.grpc.examples.helloworld.HelloWorldServer
+java -cp build/libs/grpc-1.0-dev.jar io.grpc.examples.helloworld.HelloWorldClient
+java -cp build/libs/grpc-1.0-dev.jar io.grpc.examples.manualflowcontrol.ManualFlowControlServer
+java -cp build/libs/grpc-1.0-dev.jar io.grpc.examples.manualflowcontrol.ManualFlowControlClient

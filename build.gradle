@@ -1,0 +1,64 @@
+plugins {
+  id 'com.diffplug.gradle.spotless' version '3.18.0' apply false
+  id 'com.github.ben-manes.versions' version '0.20.0' apply false
+  id 'com.github.johnrengelman.shadow' version '4.0.4' apply false
+  id 'com.google.protobuf' version '0.8.8' apply false
+  id 'io.spring.dependency-management' version '1.0.6.RELEASE' apply false
+}
+
+def javaDevProjects = [
+  'grpc',
+  'protobuf',
+  'rsocket',
+]
+
+subprojects {
+  apply from: "$rootDir/gradle/dependencies.gradle"
+  apply from: "$rootDir/gradle/resolveDependencies.gradle"
+
+  repositories {
+    jcenter()
+  }
+
+  apply plugin: 'com.github.ben-manes.versions'
+
+  tasks.withType(JavaCompile) {
+    options.compilerArgs << '-parameters'
+    options.deprecation = 'true'
+
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+  }
+
+  tasks.withType(Test) {
+    useJUnitPlatform()
+
+    afterSuite { desc, result ->
+      if (!desc.parent) {
+        println "Test result: ${result.resultType}"
+        println "Test summary: ${result.testCount} tests, " +
+            "${result.successfulTestCount} succeeded, " +
+            "${result.failedTestCount} failed, " +
+            "${result.skippedTestCount} skipped"
+      }
+    }
+
+    testLogging {
+      events 'passed', 'skipped', 'failed'
+      showStandardStreams = true
+    }
+  }
+
+  version = '1.0-dev'
+
+  if (javaDevProjects.contains(it.name)) {
+    apply plugin: 'com.diffplug.gradle.spotless'
+    apply plugin: 'jacoco'
+
+    spotless {
+      java {
+        googleJavaFormat()
+      }
+    }
+  }
+}

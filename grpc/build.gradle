@@ -1,0 +1,36 @@
+plugins {
+  id 'application'
+  id 'com.github.johnrengelman.shadow'
+  id 'com.google.protobuf'
+}
+
+protobuf {
+  protoc {
+    artifact = libraries.protoc
+  }
+  plugins {
+    grpc {
+      artifact = libraries.grpc
+    }
+  }
+  generateProtoTasks {
+    all()*.plugins {
+      grpc {}
+    }
+  }
+}
+
+dependencies {
+  compileOnly libraries.javaxAnnotationApi
+  implementation libraries.grpcProtobuf
+  implementation libraries.grpcStub
+  runtimeOnly libraries.grpcNettyShaded
+}
+
+mainClassName = 'io.grpc.examples.helloworld.HelloWorldServer'
+
+shadowJar {
+  manifest {
+    attributes 'Main-Class': mainClassName
+  }
+}

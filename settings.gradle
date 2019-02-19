@@ -1,0 +1,5 @@
+include 'grpc'
+include 'protobuf'
+include 'rsocket'
+
+rootProject.name = 'modern-rpc'

@@ -1,0 +1,19 @@
+plugins {
+  id 'com.google.protobuf'
+  id 'java-library'
+}
+
+protobuf {
+  protoc {
+    artifact = libraries.protoc
+  }
+}
+
+dependencies {
+  api libraries.protobuf
+
+  testImplementation libraries.jupiterApi
+  testImplementation libraries.slf4jApi
+  testRuntimeOnly libraries.jupiterEngine
+  testRuntimeOnly libraries.slf4jSimple
+}

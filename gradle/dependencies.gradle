@@ -1,0 +1,28 @@
+ext {
+  versions = [
+    grpc: '1.18.0',
+    javaxAnnotation: '1.3.2',
+    jupiter: '5.4.0',
+    protobuf: '3.6.1',
+    rsocketNetty: '0.11.17',
+    rsocketRpc: '0.2.13',
+    slf4j: '1.8.0-beta2',
+  ]
+
+  libraries = [
+    grpc: "io.grpc:protoc-gen-grpc-java:${versions.grpc}",
+    grpcNettyShaded: "io.grpc:grpc-netty-shaded:${versions.grpc}",
+    grpcProtobuf: "io.grpc:grpc-protobuf:${versions.grpc}",
+    grpcStub: "io.grpc:grpc-stub:${versions.grpc}",
+    javaxAnnotationApi: "javax.annotation:javax.annotation-api:${versions.javaxAnnotation}",
+    jupiterApi: "org.junit.jupiter:junit-jupiter-api:${versions.jupiter}",
+    jupiterEngine: "org.junit.jupiter:junit-jupiter-engine:${versions.jupiter}",
+    protobuf: "com.google.protobuf:protobuf-java:${versions.protobuf}",
+    protoc: "com.google.protobuf:protoc:${versions.protobuf}",
+    rsocketNetty: "io.rsocket:rsocket-transport-netty:${versions.rsocketNetty}",
+    rsocketRpcCore: "io.rsocket.rpc:rsocket-rpc-core:${versions.rsocketRpc}",
+    rsocketRpcProtobuf: "io.rsocket.rpc:rsocket-rpc-protobuf:${versions.rsocketRpc}",
+    slf4jApi: "org.slf4j:slf4j-api:${versions.slf4j}",
+    slf4jSimple: "org.slf4j:slf4j-simple:${versions.slf4j}",
+  ]
+}

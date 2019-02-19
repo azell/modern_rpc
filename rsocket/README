@@ -1,0 +1,2 @@
+java -cp build/libs/rsocket-1.0-dev.jar io.rsocket.examples.simpleservice.DefaultSimpleService
+java -cp build/libs/rsocket-1.0-dev.jar io.rsocket.examples.simpleservice.DefaultSimpleServiceClient

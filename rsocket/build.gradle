@@ -1,0 +1,41 @@
+plugins {
+  id 'application'
+  id 'com.github.johnrengelman.shadow'
+  id 'com.google.protobuf'
+  id 'io.spring.dependency-management'
+}
+
+protobuf {
+  protoc {
+    artifact = libraries.protoc
+  }
+  plugins {
+    rsocketRpc {
+      artifact = libraries.rsocketRpcProtobuf
+    }
+  }
+  generateProtoTasks {
+    all()*.plugins {
+      rsocketRpc {}
+    }
+  }
+}
+
+dependencies {
+  implementation platform('io.projectreactor:reactor-bom:Californium-SR5')
+  implementation 'io.projectreactor:reactor-core'
+
+  implementation libraries.protobuf
+  implementation libraries.rsocketNetty
+  implementation libraries.rsocketRpcCore
+
+  runtimeOnly libraries.slf4jSimple
+}
+
+mainClassName = 'io.rsocket.examples.simpleservice.DefaultSimpleService'
+
+shadowJar {
+  manifest {
+    attributes 'Main-Class': mainClassName
+  }
+}
