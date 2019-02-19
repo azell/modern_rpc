@@ -7,6 +7,7 @@ import com.google.protobuf.Timestamp;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.time.Instant;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -17,15 +18,15 @@ class AddressBookTest {
 
   @Test
   public void verifyObjectEquality() throws IOException {
-    var lhs = person();
+    Person lhs = person();
 
     logger.info("{}", lhs);
 
-    var output = new ByteArrayOutputStream();
+    ByteArrayOutputStream output = new ByteArrayOutputStream();
 
     lhs.writeTo(output);
 
-    var input = new ByteArrayInputStream(output.toByteArray());
+    InputStream input = new ByteArrayInputStream(output.toByteArray());
 
     assertEquals(lhs, Person.parseFrom(input));
   }
@@ -48,7 +49,7 @@ class AddressBookTest {
   }
 
   private Timestamp timestamp() {
-    var instant = Instant.now();
+    Instant instant = Instant.now();
 
     return Timestamp.newBuilder()
         .setSeconds(instant.getEpochSecond())

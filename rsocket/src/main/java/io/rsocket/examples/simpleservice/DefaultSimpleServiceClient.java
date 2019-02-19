@@ -13,24 +13,17 @@ class DefaultSimpleServiceClient {
     RSocket rSocket =
         RSocketFactory.connect().transport(TcpClientTransport.create(8081)).start().block();
     SimpleServiceClient serviceClient = new SimpleServiceClient(rSocket);
-    serviceClient
-        .fireAndForget(
-            SimpleRequest.newBuilder()
-                .setRequestMessage("fire and forget from rsocket client")
-                .build())
-        .block();
+    serviceClient.fireAndForget(request("fire and forget from rsocket client")).block();
     SimpleResponse response =
-        serviceClient
-            .requestReply(
-                SimpleRequest.newBuilder().setRequestMessage("request from rsocket client").build())
-            .block();
+        serviceClient.requestReply(request("request from rsocket client")).block();
     System.out.println("response -> " + response);
     serviceClient
-        .requestStream(
-            SimpleRequest.newBuilder()
-                .setRequestMessage("stream request from rsocket client")
-                .build())
+        .requestStream(request("stream request from rsocket client"))
         .subscribe(r -> System.out.println(r));
     System.in.read();
+  }
+
+  private static SimpleRequest request(String msg) {
+    return SimpleRequest.newBuilder().setRequestMessage(msg).build();
   }
 }
