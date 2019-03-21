@@ -5,7 +5,7 @@ ext {
     jupiter: '5.4.0',
     protobuf: '3.7.0',
     rsocketNetty: '0.12.1',
-    rsocketRpc: '0.2.13',
+    rsocketRpc: '0.2.15',
     slf4j: '1.8.0-beta4',
   ]
 
